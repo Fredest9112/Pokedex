@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textsize_listbyid_item">25sp</dimen>
+    <dimen name="margins_listbyid_item">10dp</dimen>
+    <dimen name="image_width_listbyid_item">100dp</dimen>
+    <dimen name="image_height_listbyid_item">100dp</dimen>
+    <dimen name="cardcorner_listbyid_item">10dp</dimen>
+    <dimen name="cardcorner_listbytype_item">10dp</dimen>
+    <dimen name="margins_listbytype_item">10dp</dimen>
+    <dimen name="textsize_listbytype_item">40sp</dimen>
+    <dimen name="textsize_details_type">25sp</dimen>
+    <dimen name="margins_details_text">10dp</dimen>
+    <dimen name="margins_typetext">5dp</dimen>
+</resources>
