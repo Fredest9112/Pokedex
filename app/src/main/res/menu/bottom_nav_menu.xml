@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/listPokemonId"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_button_home" />
+
+    <item
+        android:id="@+id/listPokemonType"
+        android:icon="@drawable/ic_by_type"
+        android:title="@string/nav_button_by_type" />
+
+</menu>

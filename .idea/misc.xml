@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITC/AndroidStudioKotAdv/Pokedex/app/src/main/res/drawable-v24/ic_by_type.xml" value="0.11203703703703703" />
+        <entry key="..\:/ITC/AndroidStudioKotAdv/Pokedex/app/src/main/res/drawable-v24/ic_home.xml" value="0.11203703703703703" />
         <entry key="..\:/ITC/AndroidStudioKotAdv/Pokedex/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/ITC/AndroidStudioKotAdv/Pokedex/app/src/main/res/layout/navigacion.xml" value="0.1213768115942029" />
+        <entry key="..\:/ITC/AndroidStudioKotAdv/Pokedex/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16145833333333334" />
       </map>
     </option>
   </component>
