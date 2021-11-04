@@ -2,7 +2,6 @@
     <string name="app_name">PokeDex</string>
     <string name="nav_button_home">Home</string>
     <string name="nav_button_by_type">By Type</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_details_desc">Description</string>
     <string name="title_specie_details">Specie</string>
