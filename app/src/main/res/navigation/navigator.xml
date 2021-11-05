@@ -2,17 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigacion"
+    android:id="@+id/navigator"
     app:startDestination="@id/listPokemonId">
 
     <fragment
         android:id="@+id/listPokemonId"
-        android:name="com.learningkotlin.pokedex.PokemonListFragment"
+        android:name="com.learningkotlin.pokedex.view.PokemonListFragment"
         android:label="fragment_list_pokemon_id"
         tools:layout="@layout/fragment_list_pokemon_id" />
     <fragment
         android:id="@+id/listPokemonType"
-        android:name="com.learningkotlin.pokedex.PokemonByTypeFragment"
+        android:name="com.learningkotlin.pokedex.view.PokemonByTypeFragment"
         android:label="fragment_list_pokemon_type"
         tools:layout="@layout/fragment_list_pokemon_type" />
 </navigation>
