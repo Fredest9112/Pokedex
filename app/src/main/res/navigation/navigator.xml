@@ -9,7 +9,7 @@
         android:id="@+id/listPokemonId"
         android:name="com.learningkotlin.pokedex.view.PokemonListFragment"
         android:label="fragment_list_pokemon_id"
-        tools:layout="@layout/fragment_list_pokemon_id" />
+        tools:layout="@layout/fragment_list_pokemon" />
     <fragment
         android:id="@+id/listPokemonType"
         android:name="com.learningkotlin.pokedex.view.PokemonByTypeFragment"

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margins_listbyid_item"
+    app:cardCornerRadius="@dimen/cardcorner_listbyid_item">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/pokemon_image"
+            android:layout_width="@dimen/image_width_listbyid_item"
+            android:layout_height="@dimen/image_height_listbyid_item"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pokemon_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margins_listbyid_item"
+            android:layout_marginStart="10dp"
+            android:text="001"
+            android:textColor="#000000"
+            android:textSize="@dimen/textsize_listbyid_item"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pokemon_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margins_listbyid_item"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Bulbasaur"
+            android:textColor="#000000"
+            android:textSize="@dimen/textsize_listbyid_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_id"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBackgroundType1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margins_listbyid_item"
+            android:layout_marginStart="10dp"
+            app:cardCornerRadius="@dimen/cardcorner_listbyid_item"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cardBackGroundType2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_image"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon_name">
+
+            <TextView
+                android:id="@+id/pokemon_details_type1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margins_typetext"
+                android:text="Type 1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_listbyid_item" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBackGroundType2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margins_listbyid_item"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="@dimen/cardcorner_listbyid_item"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cardBackgroundType1"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon_name">
+
+            <TextView
+                android:id="@+id/pokemon_details_type2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margins_typetext"
+                android:text="Type 2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_listbyid_item" />
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

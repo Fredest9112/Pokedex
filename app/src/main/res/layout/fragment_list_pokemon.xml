@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.PokemonByTypeFragment">
+    tools:context=".view.PokemonListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/pokemon_type_recycler"
             android:layout_gravity="center_horizontal"
+            android:id="@+id/pokemon_id_recycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
