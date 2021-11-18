@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e98701ac01a19e47e483d09e64ff9b52",
+    "entities": [
+      {
+        "tableName": "pokemon_data_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_autoId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pokemon_id` INTEGER NOT NULL, `pokemon_name` TEXT NOT NULL, `pokemon_type1` TEXT NOT NULL, `pokemon_type2` TEXT NOT NULL, `pokemon_image` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "autoId",
+            "columnName": "pokemon_autoId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "pokemon_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "pokemon_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type1",
+            "columnName": "pokemon_type1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type2",
+            "columnName": "pokemon_type2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "pokemon_image",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pokemon_autoId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e98701ac01a19e47e483d09e64ff9b52')"
+    ]
+  }
+}
