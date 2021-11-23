@@ -9,20 +9,20 @@ data class Pokemon(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pokemon_autoId")
-    val autoId:Int,
+    val autoId: Int,
 
     @ColumnInfo(name = "pokemon_id")
-    var id:Int,
+    var id: Int,
 
     @ColumnInfo(name = "pokemon_name")
-    var name:String,
+    var name: String,
 
     @ColumnInfo(name = "pokemon_type1")
-    var type1:String,
+    var type1: String,
 
     @ColumnInfo(name = "pokemon_type2")
-    var type2:String,
+    var type2: String,
 
     @ColumnInfo(name = "pokemon_image")
-    var image:String
+    var image: String
 )

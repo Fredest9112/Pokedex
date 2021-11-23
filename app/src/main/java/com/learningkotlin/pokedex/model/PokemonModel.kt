@@ -15,39 +15,48 @@ import com.learningkotlin.pokedex.repository.database.PokemonDatabase
 import com.learningkotlin.pokedex.repository.database.PokemonRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import java.net.ConnectException
 
-class PokemonModel(context:Context): IPokemonModel {
+class PokemonModel(context: Context) : IPokemonModel {
 
     private val fragContext = context
     private val dao = PokemonDatabase.getInstance(context).pokemonDao
     private val repository = PokemonRepository(dao)
 
     override suspend fun savePokemonInfo() {
-        Log.i("Connectivity","${isInternetAvailable(fragContext)}")
-        while (getIndex() <= MAX_NUM_POKEMON && isInternetAvailable(fragContext)) {
-            val index = getIndex()
-            val response = PokemonInfoApiAdapter().getRetrofit().create(IPokemonInfoApiService::class.java).getInfoOfPokemon("$index")
-            val infoOfPokemon = response.body()
 
-            if (response.isSuccessful && infoOfPokemon != null) {
+        try {
+            while (getIndex() <= MAX_NUM_POKEMON && isInternetAvailable(fragContext)) {
+                Log.i("Connectivity", "${isInternetAvailable(fragContext)}")
+                val index = getIndex()
+                val response =
+                    PokemonInfoApiAdapter().getRetrofit().create(IPokemonInfoApiService::class.java)
+                        .getInfoOfPokemon("$index")
+                val infoOfPokemon = response.body()
 
-                var types2 = ""
-                if (infoOfPokemon.types.size > 1) {
-                    types2 = infoOfPokemon.types[1].type.name
+                if (response.isSuccessful && infoOfPokemon != null) {
+
+                    var types2 = ""
+                    if (infoOfPokemon.types.size > 1) {
+                        types2 = infoOfPokemon.types[1].type.name
+                    }
+                    val pokemon = Pokemon(
+                        0, infoOfPokemon.id, infoOfPokemon.name,
+                        infoOfPokemon.types[0].type.name, types2,
+                        infoOfPokemon.sprites.other.officialArtwork.frontDefault
+                    )
+
+                    repository.insert(pokemon)
+
+                } else {
+                    Log.d("Error cycle", "${response.errorBody()}")
+                    break
                 }
-                val pokemon = Pokemon(
-                    0, infoOfPokemon.id, infoOfPokemon.name,
-                    infoOfPokemon.types[0].type.name, types2,
-                    infoOfPokemon.sprites.other.officialArtwork.frontDefault
-                )
-
-                repository.insert(pokemon)
-
-            } else {
-                Log.d("Error cycle", "${response.errorBody()}")
-                break
             }
+        } catch (e: ConnectException) {
+            Log.i("Connect Error", "$e")
         }
+
     }
 
     private fun isInternetAvailable(fragContext: Context) =
@@ -68,7 +77,7 @@ class PokemonModel(context:Context): IPokemonModel {
                 }
             }
         }
-        return deferredIndex.await()+1
+        return deferredIndex.await() + 1
     }
 
     override fun loadPokemon(): LiveData<List<Pokemon>> = liveData {

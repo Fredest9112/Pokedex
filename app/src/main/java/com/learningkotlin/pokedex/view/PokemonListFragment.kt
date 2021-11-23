@@ -16,7 +16,7 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 
 class PokemonListFragment : Fragment(), IPokemonView {
 
-    private var binding:FragmentListPokemonBinding? = null
+    private var binding: FragmentListPokemonBinding? = null
     private lateinit var adapter: RVListOfPokemonAdapter
     private lateinit var iPokemonPresenter: IPokemonPresenter
 
@@ -24,7 +24,7 @@ class PokemonListFragment : Fragment(), IPokemonView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListPokemonBinding.inflate(inflater, container,false)
+        binding = FragmentListPokemonBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -49,7 +49,7 @@ class PokemonListFragment : Fragment(), IPokemonView {
 
     private fun initializeRV() {
         adapter = RVListOfPokemonAdapter()
-        val gridLayoutManager = GridLayoutManager(context,1)
+        val gridLayoutManager = GridLayoutManager(context, 1)
         binding?.pokemonIdRecycler?.layoutManager = gridLayoutManager
         binding?.pokemonIdRecycler?.adapter = adapter
     }

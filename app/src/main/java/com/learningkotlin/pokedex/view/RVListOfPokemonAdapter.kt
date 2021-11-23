@@ -69,7 +69,7 @@ class ListOfPokemonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.pokemonDetailsType1.text = item.type1.replaceFirstChar { it.uppercase() }
         binding.pokemonDetailsType2.text = item.type2.replaceFirstChar { it.uppercase() }
         setBackgroundColorOnType(binding.cardBackgroundType1, context, item.type1)
-        if(item.type2.isNotEmpty()){
+        if (item.type2.isNotEmpty()) {
             binding.cardBackGroundType2.visibility = View.VISIBLE
             setBackgroundColorOnType(binding.cardBackGroundType2, context, item.type2)
         }
@@ -77,7 +77,12 @@ class ListOfPokemonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private fun setBackgroundColorOnType(cardView: CardView, context: Context, types: String) {
         when (types.lowercase()) {
-            NORMAL -> cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.normal))
+            NORMAL -> cardView.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.normal
+                )
+            )
             FIRE -> cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.fire))
             WATER -> cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.water))
             ELECTRIC -> cardView.setCardBackgroundColor(

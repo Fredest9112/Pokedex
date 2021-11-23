@@ -6,10 +6,7 @@ import com.learningkotlin.pokedex.interfaces.IPokemonModel
 import com.learningkotlin.pokedex.interfaces.IPokemonPresenter
 import com.learningkotlin.pokedex.interfaces.IPokemonView
 import com.learningkotlin.pokedex.repository.database.Pokemon
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class PokemonPresenter(
     private val iPokemonView: IPokemonView,
@@ -19,22 +16,27 @@ class PokemonPresenter(
     private lateinit var pokemonInfo: LiveData<List<Pokemon>>
     private var pokemonInfoByQuery: LiveData<List<Pokemon>>? = null
     override fun pokemonInfo() {
-        job = Job()
-        Log.i("Job","Started")
+        job = SupervisorJob()
+        Log.i("Job", "Started")
         job = CoroutineScope(Dispatchers.IO).launch {
-            iPokemonModel.savePokemonInfo()
+            try {
+                iPokemonModel.savePokemonInfo()
+            } catch (e: Exception) {
+                Log.i("Coroutine Error", "$e")
+            }
+
         }
     }
 
     override fun showPokemonInfo() {
-        if(pokemonInfoByQuery!=null){
+        if (pokemonInfoByQuery != null) {
             pokemonInfoByQuery!!.removeObservers(iPokemonView.getLifeCycleOwner())
-            pokemonInfo.observe(iPokemonView.getLifeCycleOwner(),{
+            pokemonInfo.observe(iPokemonView.getLifeCycleOwner(), {
                 iPokemonView.showPokemon(it)
             })
-        } else{
+        } else {
             pokemonInfo = iPokemonModel.loadPokemon()
-            pokemonInfo.observe(iPokemonView.getLifeCycleOwner(),{
+            pokemonInfo.observe(iPokemonView.getLifeCycleOwner(), {
                 iPokemonView.showPokemon(it)
             })
         }
@@ -49,7 +51,7 @@ class PokemonPresenter(
     }
 
     override fun cancelCurrentJob() {
-        Log.i("Job","Cancelled")
+        Log.i("Job", "Cancelled")
         job.cancel()
     }
 }
