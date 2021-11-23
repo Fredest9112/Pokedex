@@ -85,12 +85,4 @@ class PokemonModel(context: Context) : IPokemonModel {
             emit(it)
         }
     }
-
-//    override fun loadPokemonByType(type: String): LiveData<List<Pokemon>> {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun loadPokemonByQuery(query: String): LiveData<List<Pokemon>> {
-//        TODO("Not yet implemented")
-//    }
 }
