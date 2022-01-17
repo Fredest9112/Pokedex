@@ -19,11 +19,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import java.net.ConnectException
 
-class PokemonModel(context:Context): IPokemonModel {
-    companion object{
-        private var instance:PokemonModel? = null
-        fun getInstance(context: Context) = synchronized(this){
-            if(instance==null){
+class PokemonModel(context: Context) : IPokemonModel {
+    companion object {
+        private var instance: PokemonModel? = null
+        fun getInstance(context: Context) = synchronized(this) {
+            if (instance == null) {
                 instance = PokemonModel(context.applicationContext)
             }
             instance
@@ -37,13 +37,14 @@ class PokemonModel(context:Context): IPokemonModel {
             while (getIndex() <= MAX_NUM_POKEMON) {
                 val index = getIndex()
                 val response =
-                    PokemonInfoApiAdapter().getPokemonInfoRetrofit().create(IPokemonInfoApiService::class.java)
+                    PokemonInfoApiAdapter().getPokemonInfoRetrofit()
+                        .create(IPokemonInfoApiService::class.java)
                         .getPokemonInfoFromUrl("$index")
                 val infoOfPokemon = response.body()
 
                 if (response.isSuccessful && infoOfPokemon != null) {
                     var type2 = ""
-                    if(infoOfPokemon.types.size>1){
+                    if (infoOfPokemon.types.size > 1) {
                         type2 = infoOfPokemon.types[1].type.name
                     }
 
@@ -82,7 +83,7 @@ class PokemonModel(context:Context): IPokemonModel {
 
     private fun getListOfAbilities(abilities: List<Abilities>): List<String> {
         val listOfAbilities = mutableListOf<String>()
-        for(url in abilities){
+        for (url in abilities) {
             listOfAbilities.add(url.ability.url)
         }
         return listOfAbilities

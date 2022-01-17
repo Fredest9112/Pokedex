@@ -22,33 +22,38 @@ class PokemonInfoApiAdapter {
             .retryOnConnectionFailure(true)
     }.build()
 
-    fun getPokemonInfoRetrofit():Retrofit{
+    fun getPokemonInfoRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL).client(client)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create())).build()
     }
 
-    fun getPokemonSpeciesInfo():Retrofit{
+    fun getPokemonSpeciesInfo(): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL_SPECIES).addConverterFactory(
-            GsonConverterFactory.create(GsonBuilder().create())).build()
+            GsonConverterFactory.create(GsonBuilder().create())
+        ).build()
     }
 
-    fun getPokemonDetails():Retrofit{
+    fun getPokemonDetails(): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
-            GsonConverterFactory.create(GsonBuilder().create())).build()
+            GsonConverterFactory.create(GsonBuilder().create())
+        ).build()
     }
 
-    fun getDamageRelations(url:String):Retrofit{
+    fun getDamageRelations(url: String): Retrofit {
         return Retrofit.Builder().baseUrl(url).addConverterFactory(
-            GsonConverterFactory.create(GsonBuilder().create())).build()
+            GsonConverterFactory.create(GsonBuilder().create())
+        ).build()
     }
 
-    fun getAbilityDesc(url:String):Retrofit{
+    fun getAbilityDesc(url: String): Retrofit {
         return Retrofit.Builder().baseUrl(url).addConverterFactory(
-            GsonConverterFactory.create(GsonBuilder().create())).build()
+            GsonConverterFactory.create(GsonBuilder().create())
+        ).build()
     }
 
-    fun getEvolutionChain(url: String):Retrofit{
+    fun getEvolutionChain(url: String): Retrofit {
         return Retrofit.Builder().baseUrl(url).addConverterFactory(
-            GsonConverterFactory.create(GsonBuilder().create())).build()
+            GsonConverterFactory.create(GsonBuilder().create())
+        ).build()
     }
 }

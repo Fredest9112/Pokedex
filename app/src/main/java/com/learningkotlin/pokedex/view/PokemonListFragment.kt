@@ -17,15 +17,15 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 
 class PokemonListFragment : Fragment(), IPokemonView {
 
-    private var binding:FragmentListPokemonBinding? = null
-    private lateinit var adapter : RVPokemonListAdapter
+    private var binding: FragmentListPokemonBinding? = null
+    private lateinit var adapter: RVPokemonListAdapter
     private lateinit var iPokemonPresenter: IPokemonPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListPokemonBinding.inflate(inflater, container,false)
+        binding = FragmentListPokemonBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -33,15 +33,18 @@ class PokemonListFragment : Fragment(), IPokemonView {
         super.onViewCreated(view, savedInstanceState)
         initializeRV()
 
-        iPokemonPresenter = PokemonPresenter(this,
-            PokemonModel.getInstance(requireActivity().applicationContext)!!)
+        iPokemonPresenter = PokemonPresenter(
+            this,
+            PokemonModel.getInstance(requireActivity().applicationContext)!!
+        )
         iPokemonPresenter.showPokemonInfo()
     }
 
     private fun initializeRV() {
         adapter = RVPokemonListAdapter()
-        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        val gridLayoutManager = GridLayoutManager(context,1)
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        val gridLayoutManager = GridLayoutManager(context, 1)
         binding?.pokemonIdRecycler?.layoutManager = gridLayoutManager
         binding?.pokemonIdRecycler?.adapter = adapter
     }

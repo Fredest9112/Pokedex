@@ -14,7 +14,7 @@ interface IPokemonInfoApiService {
     suspend fun getPokemonInfoFromUrl(@Url url: String): Response<PokemonDetails>
 
     @GET
-    suspend fun getPokemonSpeciesEndPoint(@Url url:String): Response<PokemonSpecies>
+    suspend fun getPokemonSpeciesEndPoint(@Url url: String): Response<PokemonSpecies>
 
     @GET
     suspend fun getPokemonDamageRelations(@Url url: String): Response<PokemonDamageRelations>

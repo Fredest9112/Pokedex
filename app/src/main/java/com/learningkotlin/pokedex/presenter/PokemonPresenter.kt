@@ -19,12 +19,12 @@ class PokemonPresenter() : IPokemonPresenter {
     private lateinit var job: Job
     private var pokemonInfo: LiveData<List<Pokemon>>? = null
 
-    constructor(PokemonViewAct: PokemonViewAct, pokemonModel: PokemonModel) : this(){
+    constructor(PokemonViewAct: PokemonViewAct, pokemonModel: PokemonModel) : this() {
         this.iPokemonViewAct = PokemonViewAct
         this.iPokemonModel = pokemonModel
     }
 
-    constructor(PokemonListFragment: PokemonListFragment, pokemonModel: PokemonModel) : this(){
+    constructor(PokemonListFragment: PokemonListFragment, pokemonModel: PokemonModel) : this() {
         this.iPokemonView = PokemonListFragment
         this.iPokemonModel = pokemonModel
     }
@@ -33,17 +33,17 @@ class PokemonPresenter() : IPokemonPresenter {
         job = SupervisorJob()
         val connectivity = iPokemonViewAct?.getContext()?.let { ConnectivityStatus(it) }
         iPokemonViewAct?.getLifeCycleOwner()?.let {
-            connectivity?.observe(it,{ isConnected ->
-                try{
-                    if(isConnected){
+            connectivity?.observe(it, { isConnected ->
+                try {
+                    if (isConnected) {
                         job = CoroutineScope(Dispatchers.IO).launch {
-                            Log.i("pokemonInfo","Internet")
+                            Log.i("pokemonInfo", "Internet")
                             iPokemonModel.savePokemonInfo()
                         }
-                    } else{
-                        Log.i("pokemonInfo","NoInternet, Job Cancelled")
+                    } else {
+                        Log.i("pokemonInfo", "NoInternet, Job Cancelled")
                     }
-                } catch (e:Exception){
+                } catch (e: Exception) {
                     e.message
                 }
             })
@@ -51,15 +51,15 @@ class PokemonPresenter() : IPokemonPresenter {
     }
 
     override fun showPokemonInfo() {
-        if(pokemonInfo != null || pokemonInfo?.hasActiveObservers() == true){
+        if (pokemonInfo != null || pokemonInfo?.hasActiveObservers() == true) {
             pokemonInfo?.removeObservers(iPokemonView.getLifeCycleOwner())
             pokemonInfo = iPokemonModel.loadPokemon()
-            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(),{
+            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(), {
                 iPokemonView.showPokemon(it)
             })
-        } else{
+        } else {
             pokemonInfo = iPokemonModel.loadPokemon()
-            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(),{
+            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(), {
                 iPokemonView.showPokemon(it)
             })
         }

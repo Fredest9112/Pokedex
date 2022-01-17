@@ -12,30 +12,57 @@ import com.squareup.picasso.Picasso
 
 class Utilities {
 
-    fun setStatsLayout(textView: TextView?, progressBar: ProgressBar?, stat: Int){
+    fun setStatsLayout(textView: TextView?, progressBar: ProgressBar?, stat: Int) {
         textView?.text = stat.toString()
         progressBar?.max = 260
         progressBar?.setProgress(stat, true)
     }
 
-    fun bindPicture(picture: String, image:ImageView?){
+    fun bindPicture(picture: String, image: ImageView?) {
         Picasso.get().load(picture).fit().into(image)
     }
 
-    fun setBackGroundColorOnType(cardView: CardView?,
-                                         context: Context?, type: String){
+    fun setBackGroundColorOnType(
+        cardView: CardView?,
+        context: Context?, type: String
+    ) {
         when (type.lowercase()) {
-            Constants.NORMAL -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.normal))
-            Constants.FIRE -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.fire))
-            Constants.WATER -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.water))
+            Constants.NORMAL -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.normal
+                )
+            )
+            Constants.FIRE -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.fire
+                )
+            )
+            Constants.WATER -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.water
+                )
+            )
             Constants.ELECTRIC -> cardView?.setCardBackgroundColor(
                 ContextCompat.getColor(
                     context!!,
                     R.color.electric
                 )
             )
-            Constants.GRASS -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.grass))
-            Constants.ICE -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.ice))
+            Constants.GRASS -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.grass
+                )
+            )
+            Constants.ICE -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.ice
+                )
+            )
             Constants.FIGHTING -> cardView?.setCardBackgroundColor(
                 ContextCompat.getColor(
                     context!!,
@@ -66,18 +93,48 @@ class Utilities {
                     R.color.psychic
                 )
             )
-            Constants.BUG -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.bug))
-            Constants.ROCK -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.rock))
-            Constants.GHOST -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.ghost))
+            Constants.BUG -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.bug
+                )
+            )
+            Constants.ROCK -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.rock
+                )
+            )
+            Constants.GHOST -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.ghost
+                )
+            )
             Constants.DRAGON -> cardView?.setCardBackgroundColor(
                 ContextCompat.getColor(
                     context!!,
                     R.color.dragon
                 )
             )
-            Constants.DARK -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.dark))
-            Constants.STEEL -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.steel))
-            Constants.FAIRY -> cardView?.setCardBackgroundColor(ContextCompat.getColor(context!!, R.color.fairy))
+            Constants.DARK -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.dark
+                )
+            )
+            Constants.STEEL -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.steel
+                )
+            )
+            Constants.FAIRY -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.fairy
+                )
+            )
         }
     }
 }

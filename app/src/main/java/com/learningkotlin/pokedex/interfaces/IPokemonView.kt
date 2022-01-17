@@ -5,6 +5,6 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 
 interface IPokemonView {
     fun showPokemon(pokemonInfo: List<Pokemon>)
-    fun getLifeCycleOwner():LifecycleOwner
+    fun getLifeCycleOwner(): LifecycleOwner
     fun showEmptySearchMessage()
 }

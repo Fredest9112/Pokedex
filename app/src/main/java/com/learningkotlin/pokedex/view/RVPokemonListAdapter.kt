@@ -10,12 +10,18 @@ import com.learningkotlin.pokedex.databinding.PokemonListItemBinding
 import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.utilities.Utilities
 
-class RVPokemonListAdapter : RecyclerView.Adapter<PokemonListViewHolder>(){
+class RVPokemonListAdapter : RecyclerView.Adapter<PokemonListViewHolder>() {
     private val pokemonList = mutableListOf<Pokemon>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return PokemonListViewHolder(layoutInflater.inflate(R.layout.pokemon_list_item, parent, false))
+        return PokemonListViewHolder(
+            layoutInflater.inflate(
+                R.layout.pokemon_list_item,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: PokemonListViewHolder, position: Int) {
@@ -35,7 +41,7 @@ class RVPokemonListAdapter : RecyclerView.Adapter<PokemonListViewHolder>(){
 
 }
 
-class PokemonListViewHolder(view:View): RecyclerView.ViewHolder(view) {
+class PokemonListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = PokemonListItemBinding.bind(view)
     fun bindInfo(item: Pokemon, context: Context?) {
         binding.cardBackGroundType2.visibility = View.INVISIBLE
@@ -44,7 +50,7 @@ class PokemonListViewHolder(view:View): RecyclerView.ViewHolder(view) {
         binding.pokemonDetailsType1.text = item.type1.replaceFirstChar { it.uppercase() }
         Utilities().setBackGroundColorOnType(binding.cardBackgroundType1, context, item.type1)
         Utilities().bindPicture(item.image, binding.pokemonImage)
-        if(item.type2.isNotEmpty()){
+        if (item.type2.isNotEmpty()) {
             binding.cardBackGroundType2.visibility = View.VISIBLE
             binding.pokemonDetailsType2.text = item.type2.replaceFirstChar { it.uppercase() }
             Utilities().setBackGroundColorOnType(binding.cardBackGroundType2, context, item.type2)

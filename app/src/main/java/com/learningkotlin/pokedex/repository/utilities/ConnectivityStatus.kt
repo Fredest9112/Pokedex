@@ -7,11 +7,11 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 
-class ConnectivityStatus(context: Context): LiveData<Boolean>() {
+class ConnectivityStatus(context: Context) : LiveData<Boolean>() {
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    private val networkCallBacks = object : ConnectivityManager.NetworkCallback(){
+    private val networkCallBacks = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
             postValue(true)
@@ -28,9 +28,9 @@ class ConnectivityStatus(context: Context): LiveData<Boolean>() {
         }
     }
 
-    private fun checkInternet(){
+    private fun checkInternet() {
         val network = connectivityManager.activeNetwork
-        if(network==null){
+        if (network == null) {
             postValue(false)
         }
 

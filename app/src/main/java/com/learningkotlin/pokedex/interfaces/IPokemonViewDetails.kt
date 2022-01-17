@@ -6,9 +6,9 @@ import com.learningkotlin.pokedex.repository.api.pokemonSpeciesEndPoint.PokemonS
 import com.learningkotlin.pokedex.repository.database.Pokemon
 
 interface IPokemonViewDetails {
-    fun getLifeCycleOwner():LifecycleOwner
+    fun getLifeCycleOwner(): LifecycleOwner
     fun showPokemonBasicInfo(pokemon: Pokemon)
-    fun getContext():Context?
+    fun getContext(): Context?
     fun showAdditionalInfo(
         pokemonSpecies: PokemonSpecies,
         pokemonEvolutions: List<Pokemon>,

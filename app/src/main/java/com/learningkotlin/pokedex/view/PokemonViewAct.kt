@@ -15,7 +15,7 @@ import com.learningkotlin.pokedex.presenter.PokemonPresenter
 
 class PokemonViewAct : AppCompatActivity(), IPokemonViewAct {
 
-    private lateinit var iPokemonPresenter:IPokemonPresenter
+    private lateinit var iPokemonPresenter: IPokemonPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
