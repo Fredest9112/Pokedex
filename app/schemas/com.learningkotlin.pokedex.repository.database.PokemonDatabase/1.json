@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e98701ac01a19e47e483d09e64ff9b52",
+    "identityHash": "9f231eafa9fd35fd36e3b1ce82028a1f",
     "entities": [
       {
         "tableName": "pokemon_data_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_autoId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pokemon_id` INTEGER NOT NULL, `pokemon_name` TEXT NOT NULL, `pokemon_type1` TEXT NOT NULL, `pokemon_type2` TEXT NOT NULL, `pokemon_image` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_autoId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pokemon_id` INTEGER NOT NULL, `pokemon_name` TEXT NOT NULL, `pokemon_type1` TEXT NOT NULL, `pokemon_type2` TEXT NOT NULL, `pokemon_image` TEXT NOT NULL, `pokemon_height` REAL NOT NULL, `pokemon_weight` REAL NOT NULL, `abilities_list` TEXT NOT NULL, `pokemon_hp` INTEGER NOT NULL, `pokemon_attack` INTEGER NOT NULL, `pokemon_defense` INTEGER NOT NULL, `pokemon_spAttack` INTEGER NOT NULL, `pokemon_spDefense` INTEGER NOT NULL, `pokemon_speed` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "autoId",
@@ -43,6 +43,60 @@
             "columnName": "pokemon_image",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "pokemon_height",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weight",
+            "columnName": "pokemon_weight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "abilitiesList",
+            "columnName": "abilities_list",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hp",
+            "columnName": "pokemon_hp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attack",
+            "columnName": "pokemon_attack",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defense",
+            "columnName": "pokemon_defense",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spAttack",
+            "columnName": "pokemon_spAttack",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spDefense",
+            "columnName": "pokemon_spDefense",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "speed",
+            "columnName": "pokemon_speed",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -58,7 +112,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e98701ac01a19e47e483d09e64ff9b52')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9f231eafa9fd35fd36e3b1ce82028a1f')"
     ]
   }
 }

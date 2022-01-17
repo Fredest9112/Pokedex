@@ -4,6 +4,6 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 
 interface IPokemonViewAct {
-    fun getLifeCycleOwner():LifecycleOwner
-    fun getContext():Context
+    fun getLifeCycleOwner(): LifecycleOwner
+    fun getContext(): Context
 }

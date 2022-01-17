@@ -15,7 +15,7 @@ class PokemonByTypeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListPokemonTypeBinding.inflate(inflater, container,false)
+        binding = FragmentListPokemonTypeBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 

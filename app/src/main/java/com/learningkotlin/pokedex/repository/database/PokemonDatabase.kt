@@ -9,15 +9,15 @@ import androidx.room.TypeConverters
 @Database(entities = [Pokemon::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class PokemonDatabase : RoomDatabase() {
-    abstract val pokemonDao : PokemonDao
+    abstract val pokemonDao: PokemonDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: PokemonDatabase? = null
         fun getInstance(context: Context): PokemonDatabase {
-            synchronized(this){
+            synchronized(this) {
                 var instance: PokemonDatabase? = INSTANCE
-                if(instance==null){
+                if (instance == null) {
                     instance = Room.databaseBuilder(
                         context,
                         PokemonDatabase::class.java,

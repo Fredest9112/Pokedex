@@ -10,7 +10,7 @@ import com.learningkotlin.pokedex.databinding.FragmentHostHomeByTypePokemonBindi
 
 class PokemonHostHomeByTypeFragment : Fragment() {
 
-    private var binding:FragmentHostHomeByTypePokemonBinding? = null
+    private var binding: FragmentHostHomeByTypePokemonBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,13 +25,14 @@ class PokemonHostHomeByTypeFragment : Fragment() {
 
         binding?.bottomNavigationView?.setOnItemSelectedListener {
             lateinit var fragment: Fragment
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.listPokemonId -> fragment = PokemonListFragment()
                 R.id.listPokemonType -> fragment = PokemonByTypeFragment()
             }
 
             childFragmentManager.beginTransaction().replace(
-                R.id.hostHomeByTypeFragmentContainer,fragment).commit()
+                R.id.hostHomeByTypeFragmentContainer, fragment
+            ).commit()
             return@setOnItemSelectedListener true
         }
     }
