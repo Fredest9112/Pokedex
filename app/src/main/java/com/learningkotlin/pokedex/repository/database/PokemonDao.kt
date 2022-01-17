@@ -22,4 +22,7 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon_data_table WHERE pokemon_name IN (:query) OR pokemon_id IN (:query)")
     fun getPokemonByQuery(query: String):Flow<List<Pokemon>>
+
+    @Query("SELECT * FROM pokemon_data_table WHERE pokemon_name IN (:query)")
+    fun getPokemonImagesByQuery(query: String): Pokemon?
 }

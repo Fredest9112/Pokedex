@@ -22,5 +22,6 @@ class Constants {
         const val FAIRY = "fairy"
         const val MAX_NUM_POKEMON = 898
         const val BASE_URL = "https://pokeapi.co/api/v2/pokemon/"
+        const val BASE_URL_SPECIES = "https://pokeapi.co/api/v2/pokemon-species/"
     }
 }

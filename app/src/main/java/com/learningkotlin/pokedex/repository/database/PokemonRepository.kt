@@ -18,7 +18,11 @@ class PokemonRepository(private val dao: PokemonDao) {
         return dao.getPokemonByType(type)
     }
 
-    fun getPokemonByQuery(query:String):Flow<List<Pokemon>>{
+    fun getPokemonListByQuery(query:String):Flow<List<Pokemon>>{
         return dao.getPokemonByQuery(query)
+    }
+
+    fun getPokemonByQuery(query:String): Pokemon? {
+        return dao.getPokemonImagesByQuery(query)
     }
 }
