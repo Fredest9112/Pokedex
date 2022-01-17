@@ -3,6 +3,7 @@ package com.learningkotlin.pokedex.model
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.learningkotlin.pokedex.interfaces.IPokemonInfoApiService
 import com.learningkotlin.pokedex.interfaces.IPokemonModel
 import com.learningkotlin.pokedex.repository.api.PokemonInfoApiAdapter
@@ -15,6 +16,7 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.database.PokemonDatabase
 import com.learningkotlin.pokedex.repository.database.PokemonRepository
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import java.net.ConnectException
 
 class PokemonModel(context:Context): IPokemonModel {
@@ -87,7 +89,11 @@ class PokemonModel(context:Context): IPokemonModel {
     }
 
     override fun loadPokemon(): LiveData<List<Pokemon>> {
-        TODO("Not yet implemented")
+        return liveData {
+            repository.pokemon.collect {
+                emit(it)
+            }
+        }
     }
 
     override fun loadPokemonByType(type: String): LiveData<List<Pokemon>> {
