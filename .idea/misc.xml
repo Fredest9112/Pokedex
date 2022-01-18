@@ -19,8 +19,11 @@
         <entry key="app/src/main/res/layout/fragment_host_home_by_type_pokemon.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/layout/fragment_list_pokemon.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/layout/fragment_list_pokemon_type.xml" value="0.14855072463768115" />
-        <entry key="app/src/main/res/layout/fragment_pokemon_details.xml" value="0.14855072463768115" />
+        <entry key="app/src/main/res/layout/fragment_pokemon_details.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/pokemon_damagerelat_item.xml" value="0.20923913043478262" />
+        <entry key="app/src/main/res/layout/pokemon_damagetype_item.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/pokemon_details.xml" value="0.14855072463768115" />
+        <entry key="app/src/main/res/layout/pokemon_evolutions_item.xml" value="0.21467391304347827" />
         <entry key="app/src/main/res/layout/pokemon_list_item.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/layout/pokemon_listbytype_item.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/layout/pokemon_skills_item.xml" value="0.14855072463768115" />

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learningkotlin.pokedex.R
@@ -19,7 +21,6 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 class PokemonByTypeFragment : Fragment(), IPokemonView {
 
     private var binding: FragmentListPokemonTypeBinding? = null
-    private val gridLayoutManager = GridLayoutManager(context, 1)
     private lateinit var typesArray: Array<String>
     private lateinit var pokemonTypesAdapter: RVPokemonListTypesAdapter
     private lateinit var pokemonByTypeAdapter: RVPokemonListAdapter
@@ -53,13 +54,23 @@ class PokemonByTypeFragment : Fragment(), IPokemonView {
 
     private fun initializeRVWithPokemonByType() {
         pokemonByTypeAdapter = RVPokemonListAdapter()
+        val gridLayoutManager = GridLayoutManager(context, 1)
         binding?.pokemonTypeRecycler?.layoutManager = gridLayoutManager
         binding?.pokemonTypeRecycler?.adapter = pokemonByTypeAdapter
+        pokemonByTypeAdapter.setOnItemClickListener(object : RVPokemonListAdapter.OnItemClickListener{
+            override fun onItemClick(pokemonId: Int) {
+                val bundleId = bundleOf("pokemonId" to pokemonId)
+                view?.findNavController()?.navigate(
+                    R.id.action_hostHomeByTypePokemonFragment_to_pokemonDetailsFragment, bundleId)
+            }
+
+        })
     }
 
     private fun initializeRVWithPokemonTypes() {
         typesArray = resources.getStringArray(R.array.types)
         pokemonTypesAdapter = RVPokemonListTypesAdapter(typesArray.asList())
+        val gridLayoutManager = GridLayoutManager(context, 1)
         binding?.pokemonTypeRecycler?.layoutManager = gridLayoutManager
         binding?.pokemonTypeRecycler?.adapter = pokemonTypesAdapter
     }

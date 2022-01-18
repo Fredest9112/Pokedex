@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.learningkotlin.pokedex.R
 import com.learningkotlin.pokedex.databinding.FragmentListPokemonBinding
 import com.learningkotlin.pokedex.interfaces.IPokemonPresenter
 import com.learningkotlin.pokedex.interfaces.IPokemonView
@@ -18,7 +21,7 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 class PokemonListFragment : Fragment(), IPokemonView {
 
     private var binding: FragmentListPokemonBinding? = null
-    private lateinit var adapter: RVPokemonListAdapter
+    private lateinit var pokemonListAdapter: RVPokemonListAdapter
     private lateinit var iPokemonPresenter: IPokemonPresenter
 
     override fun onCreateView(
@@ -38,15 +41,23 @@ class PokemonListFragment : Fragment(), IPokemonView {
             PokemonModel.getInstance(requireActivity().applicationContext)!!
         )
         iPokemonPresenter.showPokemonInfo()
+        pokemonListAdapter.setOnItemClickListener(object: RVPokemonListAdapter.OnItemClickListener{
+            override fun onItemClick(pokemonId: Int) {
+                val bundleId = bundleOf("pokemonId" to pokemonId)
+                view.findNavController()
+                    .navigate(R.id.action_hostHomeByTypePokemonFragment_to_pokemonDetailsFragment, bundleId)
+            }
+
+        })
     }
 
     private fun initializeRV() {
-        adapter = RVPokemonListAdapter()
-        adapter.stateRestorationPolicy =
+        pokemonListAdapter = RVPokemonListAdapter()
+        pokemonListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         val gridLayoutManager = GridLayoutManager(context, 1)
         binding?.pokemonIdRecycler?.layoutManager = gridLayoutManager
-        binding?.pokemonIdRecycler?.adapter = adapter
+        binding?.pokemonIdRecycler?.adapter = pokemonListAdapter
     }
 
     override fun onDestroyView() {
@@ -55,7 +66,7 @@ class PokemonListFragment : Fragment(), IPokemonView {
     }
 
     override fun showPokemon(pokemonInfo: List<Pokemon>) {
-        adapter.addPokemon(pokemonInfo)
+        pokemonListAdapter.addPokemon(pokemonInfo)
     }
 
     override fun getLifeCycleOwner(): LifecycleOwner {

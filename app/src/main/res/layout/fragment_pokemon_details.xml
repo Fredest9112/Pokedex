@@ -411,6 +411,272 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/typeDescriptions"
+            style="@style/titlestyle_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Strengths and Weaknesses"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutHoriz" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewT1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeDescriptions">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/damageFromX2T1"
+                    style="@style/valueMultFactor"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="2.0 ->"
+                    app:layout_constraintStart_toEndOf="@+id/damageFromTitleT1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/damageFromX0.5T1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="0.5 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromX2T1"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromX2T1" />
+
+                <TextView
+                    android:id="@+id/damageFromX0T1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="0.0 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromX0.5T1"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromX0.5T1" />
+
+                <TextView
+                    android:id="@+id/damageToX2T1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="2.0 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromX0T1"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromX0T1" />
+
+                <TextView
+                    android:id="@+id/damageToX0.5T1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="0.5 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageToX2T1"
+                    app:layout_constraintTop_toBottomOf="@+id/damageToX2T1" />
+
+                <TextView
+                    android:id="@+id/damageToX0T1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="0.0 ->"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/damageToX0.5T1"
+                    app:layout_constraintTop_toBottomOf="@+id/damageToX0.5T1" />
+
+                <TextView
+                    android:id="@+id/damageFromTitleT1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="53dp"
+                    android:text="Damage\nfrom"
+                    app:layout_constraintStart_toEndOf="@+id/type1Pokemon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/damageToTitleT1"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="86dp"
+                    android:text="Damage\nto"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromTitleT1"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT1" />
+
+                <TextView
+                    android:id="@+id/type1Pokemon"
+                    style="@style/titlestyle_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Type1"
+                    app:layout_constraintBottom_toTopOf="@+id/damageToTitleT1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT1" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/damageFromX2T1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDamageRelatT1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewT2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewT1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/damageFromX2T2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDamageRelatT2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/damageFromX2T2"
+                    style="@style/valueMultFactor"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="2.0 ->"
+                    app:layout_constraintStart_toEndOf="@+id/damageFromTitleT2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/damageFromX0.5T2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="0.5 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromX2T2"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromX2T2" />
+
+                <TextView
+                    android:id="@+id/damageFromX0T2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="0.0 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromX0.5T2"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromX0.5T2" />
+
+                <TextView
+                    android:id="@+id/damageToX2T2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="2.0 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromX0T2"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromX0T2" />
+
+                <TextView
+                    android:id="@+id/damageToX0.5T2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="0.5 ->"
+                    app:layout_constraintStart_toStartOf="@+id/damageToX2T2"
+                    app:layout_constraintTop_toBottomOf="@+id/damageToX2T2" />
+
+                <TextView
+                    android:id="@+id/damageToX0T2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="0.0 ->"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/damageToX0.5T2"
+                    app:layout_constraintTop_toBottomOf="@+id/damageToX0.5T2" />
+
+                <TextView
+                    android:id="@+id/damageFromTitleT2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="53dp"
+                    android:text="Damage\nfrom"
+                    app:layout_constraintStart_toEndOf="@+id/type2Pokemon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/damageToTitleT2"
+                    style="@style/valueMultFactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="96dp"
+                    android:text="Damage \nto"
+                    app:layout_constraintStart_toStartOf="@+id/damageFromTitleT2"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT2" />
+
+                <TextView
+                    android:id="@+id/type2Pokemon"
+                    style="@style/titlestyle_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Type2"
+                    app:layout_constraintBottom_toTopOf="@+id/damageToTitleT2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

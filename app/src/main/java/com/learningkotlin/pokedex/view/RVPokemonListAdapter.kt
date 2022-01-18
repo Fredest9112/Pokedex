@@ -9,9 +9,11 @@ import com.learningkotlin.pokedex.R
 import com.learningkotlin.pokedex.databinding.PokemonListItemBinding
 import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.utilities.Utilities
+import kotlin.properties.Delegates
 
 class RVPokemonListAdapter : RecyclerView.Adapter<PokemonListViewHolder>() {
     private val pokemonList = mutableListOf<Pokemon>()
+    private lateinit var onItemClickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -20,7 +22,7 @@ class RVPokemonListAdapter : RecyclerView.Adapter<PokemonListViewHolder>() {
                 R.layout.pokemon_list_item,
                 parent,
                 false
-            )
+            ), onItemClickListener
         )
     }
 
@@ -39,11 +41,30 @@ class RVPokemonListAdapter : RecyclerView.Adapter<PokemonListViewHolder>() {
         notifyDataSetChanged()
     }
 
+    interface OnItemClickListener{
+        fun onItemClick(pokemonId:Int)
+    }
+
+    fun setOnItemClickListener(listener:OnItemClickListener){
+        onItemClickListener = listener
+    }
+
 }
 
-class PokemonListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PokemonListViewHolder(
+    view: View, listener: RVPokemonListAdapter.OnItemClickListener
+) : RecyclerView.ViewHolder(view) {
     private val binding = PokemonListItemBinding.bind(view)
+    private var pokemonId by Delegates.notNull<Int>()
+
+    init {
+        view.setOnClickListener {
+            listener.onItemClick(pokemonId)
+        }
+    }
+
     fun bindInfo(item: Pokemon, context: Context?) {
+        pokemonId = item.id
         binding.cardBackGroundType2.visibility = View.INVISIBLE
         binding.pokemonId.text = item.id.toString()
         binding.pokemonName.text = item.name.replaceFirstChar { it.uppercase() }
