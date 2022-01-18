@@ -6,6 +6,7 @@ import com.learningkotlin.pokedex.interfaces.*
 import com.learningkotlin.pokedex.model.PokemonModel
 import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.utilities.ConnectivityStatus
+import com.learningkotlin.pokedex.view.PokemonByTypeFragment
 import com.learningkotlin.pokedex.view.PokemonListFragment
 import com.learningkotlin.pokedex.view.PokemonViewAct
 import kotlinx.coroutines.*
@@ -26,6 +27,11 @@ class PokemonPresenter() : IPokemonPresenter {
 
     constructor(PokemonListFragment: PokemonListFragment, pokemonModel: PokemonModel) : this() {
         this.iPokemonView = PokemonListFragment
+        this.iPokemonModel = pokemonModel
+    }
+
+    constructor(pokemonByTypeFragment: PokemonByTypeFragment, pokemonModel: PokemonModel) : this(){
+        this.iPokemonView = pokemonByTypeFragment
         this.iPokemonModel = pokemonModel
     }
 
@@ -66,7 +72,10 @@ class PokemonPresenter() : IPokemonPresenter {
     }
 
     override fun showPokemonInfoByType(type: String) {
-        TODO("Not yet implemented")
+        pokemonInfo = iPokemonModel.loadPokemonByType(type.lowercase())
+        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(),{
+            iPokemonView.showPokemon(it)
+        })
     }
 
     override fun showPokemonByQuery(query: String) {

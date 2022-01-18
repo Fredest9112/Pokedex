@@ -98,7 +98,11 @@ class PokemonModel(context: Context) : IPokemonModel {
     }
 
     override fun loadPokemonByType(type: String): LiveData<List<Pokemon>> {
-        TODO("Not yet implemented")
+        return liveData {
+            repository.getPokemonByType(type).collect {
+                emit(it)
+            }
+        }
     }
 
     override fun loadPokemonByQuery(query: String): LiveData<List<Pokemon>> {
