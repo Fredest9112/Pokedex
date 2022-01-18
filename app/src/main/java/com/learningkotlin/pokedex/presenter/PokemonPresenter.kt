@@ -30,7 +30,7 @@ class PokemonPresenter() : IPokemonPresenter {
         this.iPokemonModel = pokemonModel
     }
 
-    constructor(pokemonByTypeFragment: PokemonByTypeFragment, pokemonModel: PokemonModel) : this(){
+    constructor(pokemonByTypeFragment: PokemonByTypeFragment, pokemonModel: PokemonModel) : this() {
         this.iPokemonView = pokemonByTypeFragment
         this.iPokemonModel = pokemonModel
     }
@@ -73,7 +73,7 @@ class PokemonPresenter() : IPokemonPresenter {
 
     override fun showPokemonInfoByType(type: String) {
         pokemonInfo = iPokemonModel.loadPokemonByType(type.lowercase())
-        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(),{
+        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(), {
             iPokemonView.showPokemon(it)
         })
     }

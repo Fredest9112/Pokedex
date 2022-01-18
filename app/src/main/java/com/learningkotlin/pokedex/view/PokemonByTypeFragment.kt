@@ -20,7 +20,7 @@ class PokemonByTypeFragment : Fragment(), IPokemonView {
 
     private var binding: FragmentListPokemonTypeBinding? = null
     private val gridLayoutManager = GridLayoutManager(context, 1)
-    private lateinit var typesArray:Array<String>
+    private lateinit var typesArray: Array<String>
     private lateinit var pokemonTypesAdapter: RVPokemonListTypesAdapter
     private lateinit var pokemonByTypeAdapter: RVPokemonListAdapter
     private lateinit var iPokemonPresenter: IPokemonPresenter
@@ -37,10 +37,12 @@ class PokemonByTypeFragment : Fragment(), IPokemonView {
         super.onViewCreated(view, savedInstanceState)
         initializeRVWithPokemonTypes()
 
-        iPokemonPresenter = PokemonPresenter(this,
+        iPokemonPresenter = PokemonPresenter(
+            this,
             PokemonModel.getInstance(requireActivity().applicationContext)!!
         )
-        pokemonTypesAdapter.setOnItemClickListener(object : RVPokemonListTypesAdapter.OnItemClickListener{
+        pokemonTypesAdapter.setOnItemClickListener(object :
+            RVPokemonListTypesAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 initializeRVWithPokemonByType()
                 iPokemonPresenter.showPokemonInfoByType(typesArray[position])
