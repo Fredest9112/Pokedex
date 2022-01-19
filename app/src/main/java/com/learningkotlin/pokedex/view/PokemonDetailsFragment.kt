@@ -57,14 +57,22 @@ class PokemonDetailsFragment : Fragment(), IPokemonViewDetails {
         (activity as AppCompatActivity).supportActionBar?.title = pokemonDetails.id
             .toString()+" "+pokemonDetails.name.replaceFirstChar { it.uppercase() }
         binding?.pokemonDetailsType1?.text = pokemonDetails.type1.replaceFirstChar { it.uppercase() }
+        binding?.type1Pokemon?.text = pokemonDetails.type1.replaceFirstChar { it.uppercase() }
         Utilities().setBackGroundColorOnType(
             binding?.cardBackgroundType1, context, pokemonDetails.type1)
+        Utilities().setBackGroundColorOnType(
+            binding?.type1BackOnSandW, context, pokemonDetails.type1
+        )
         if(pokemonDetails.type2.isNotEmpty()){
             binding?.cardBackgroundType2?.visibility = View.VISIBLE
             binding?.cardViewT2?.visibility = View.VISIBLE
+            binding?.pokemonDetailsType2?.text = pokemonDetails.type2.replaceFirstChar { it.uppercase() }
+            binding?.type2Pokemon?.text = pokemonDetails.type2.replaceFirstChar { it.uppercase() }
             Utilities().setBackGroundColorOnType(
                 binding?.cardBackgroundType2, context, pokemonDetails.type2)
-            binding?.pokemonDetailsType2?.text = pokemonDetails.type2.replaceFirstChar { it.uppercase() }
+            Utilities().setBackGroundColorOnType(
+                binding?.type2BackOnSandW, context, pokemonDetails.type2
+            )
         }
         Utilities().bindPicture(pokemonDetails.image, binding?.imagePokemonDetails)
         binding?.pokemonWeightDetails?.text = resources.getString(R.string.kilograms, pokemonDetails.weight.toString())

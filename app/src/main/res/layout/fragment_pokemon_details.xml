@@ -498,12 +498,11 @@
                 <TextView
                     android:id="@+id/damageFromTitleT1"
                     style="@style/valueMultFactor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="63dp"
+                    android:layout_height="41dp"
                     android:layout_marginTop="53dp"
                     android:text="Damage\nfrom"
-                    app:layout_constraintStart_toEndOf="@+id/type1Pokemon"
+                    app:layout_constraintStart_toEndOf="@+id/type1BackOnSandW"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -514,17 +513,6 @@
                     android:layout_marginTop="86dp"
                     android:text="Damage\nto"
                     app:layout_constraintStart_toStartOf="@+id/damageFromTitleT1"
-                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT1" />
-
-                <TextView
-                    android:id="@+id/type1Pokemon"
-                    style="@style/titlestyle_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Type1"
-                    app:layout_constraintBottom_toTopOf="@+id/damageToTitleT1"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT1" />
 
                 <LinearLayout
@@ -546,6 +534,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/type1BackOnSandW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/damageToTitleT1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT1">
+
+                    <TextView
+                        android:id="@+id/type1Pokemon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Type1"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -647,10 +655,9 @@
                     style="@style/valueMultFactor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="53dp"
                     android:text="Damage\nfrom"
-                    app:layout_constraintStart_toEndOf="@+id/type2Pokemon"
+                    app:layout_constraintStart_toEndOf="@+id/type2BackOnSandW"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -663,16 +670,25 @@
                     app:layout_constraintStart_toStartOf="@+id/damageFromTitleT2"
                     app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT2" />
 
-                <TextView
-                    android:id="@+id/type2Pokemon"
-                    style="@style/titlestyle_details"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/type2BackOnSandW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Type2"
                     app:layout_constraintBottom_toTopOf="@+id/damageToTitleT2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT2" />
+                    app:layout_constraintTop_toBottomOf="@+id/damageFromTitleT2">
+
+                    <TextView
+                        android:id="@+id/type2Pokemon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Type2"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

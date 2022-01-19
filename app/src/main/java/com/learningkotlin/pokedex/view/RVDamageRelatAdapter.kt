@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.learningkotlin.pokedex.R
 import com.learningkotlin.pokedex.databinding.PokemonDamagerelatItemBinding
 import com.learningkotlin.pokedex.databinding.PokemonDamagetypeItemBinding
+import com.learningkotlin.pokedex.repository.constants.Constants.Companion.NO_TYPE
 import com.learningkotlin.pokedex.repository.utilities.Utilities
 
 class RVDamageRelatAdapter(val damageRelatList: List<List<String>>): RecyclerView.Adapter<DamageRelatViewHolder>() {
@@ -22,7 +23,7 @@ class RVDamageRelatAdapter(val damageRelatList: List<List<String>>): RecyclerVie
         if(data.isNotEmpty()){
             holder.bindDamageRelat(data, holder.itemView.context)
         } else{
-            holder.bindDamageRelat(listOf("No Type"), holder.itemView.context)
+            holder.bindDamageRelat(listOf(NO_TYPE), holder.itemView.context)
         }
     }
 
@@ -59,7 +60,7 @@ class DamageRelatViewHolder(view:View):RecyclerView.ViewHolder(view) {
     class TypeAdapterViewHolder(view: View):RecyclerView.ViewHolder(view) {
         private val binding = PokemonDamagetypeItemBinding.bind(view)
         fun bindType(type: String, context: Context) {
-            binding.type.text = type
+            binding.type.text = type.replaceFirstChar { it.uppercase() }
             Utilities().setBackGroundColorOnType(binding.cardViewType, context, type)
         }
     }

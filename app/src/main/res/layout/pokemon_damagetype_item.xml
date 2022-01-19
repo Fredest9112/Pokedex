@@ -22,7 +22,10 @@
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margins_typetext"
+            android:layout_marginRight="@dimen/margins_typetext"
             android:text="TextView"
-            android:textSize="23sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
