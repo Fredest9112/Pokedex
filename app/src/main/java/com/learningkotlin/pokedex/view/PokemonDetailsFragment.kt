@@ -120,10 +120,10 @@ class PokemonDetailsFragment : Fragment(), IPokemonViewDetails {
     }
 
     private fun initRVDamageRelatT2(damageRelationsType2: List<List<String>>) {
-        damageRelatAdapterT1 = RVDamageRelatAdapter(damageRelationsType2)
+        damageRelatAdapterT2 = RVDamageRelatAdapter(damageRelationsType2)
         val linearLayoutManager = LinearLayoutManager(context)
         binding?.rvDamageRelatT2?.layoutManager = linearLayoutManager
-        binding?.rvDamageRelatT2?.adapter = damageRelatAdapterT1
+        binding?.rvDamageRelatT2?.adapter = damageRelatAdapterT2
     }
 
     private fun initRVEvolutions(pokemonEvolutions: List<Pokemon>) {

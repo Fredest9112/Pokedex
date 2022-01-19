@@ -26,6 +26,6 @@
             android:layout_marginRight="@dimen/margins_typetext"
             android:text="TextView"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
