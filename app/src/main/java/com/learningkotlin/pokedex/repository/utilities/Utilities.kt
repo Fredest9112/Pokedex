@@ -135,6 +135,13 @@ class Utilities {
                     R.color.fairy
                 )
             )
+
+            Constants.NO_TYPE -> cardView?.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.black
+                )
+            )
         }
     }
 }

@@ -7,6 +7,7 @@ import com.learningkotlin.pokedex.model.PokemonModel
 import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.utilities.ConnectivityStatus
 import com.learningkotlin.pokedex.view.PokemonByTypeFragment
+import com.learningkotlin.pokedex.view.PokemonDetailsFragment
 import com.learningkotlin.pokedex.view.PokemonListFragment
 import com.learningkotlin.pokedex.view.PokemonViewAct
 import kotlinx.coroutines.*
@@ -32,6 +33,11 @@ class PokemonPresenter() : IPokemonPresenter {
 
     constructor(pokemonByTypeFragment: PokemonByTypeFragment, pokemonModel: PokemonModel) : this() {
         this.iPokemonView = pokemonByTypeFragment
+        this.iPokemonModel = pokemonModel
+    }
+
+    constructor(pokemonViewDetails: PokemonDetailsFragment, pokemonModel: PokemonModel) : this(){
+        this.iPokemonViewDetails = pokemonViewDetails
         this.iPokemonModel = pokemonModel
     }
 
@@ -83,6 +89,74 @@ class PokemonPresenter() : IPokemonPresenter {
     }
 
     override fun showPokemonDetails(query: String) {
-        TODO("Not yet implemented")
+        iPokemonViewDetails?.getLifeCycleOwner()?.let { pokemonInfo?.removeObservers(it) }
+        pokemonInfo = iPokemonModel.loadPokemonByQuery(query.lowercase())
+        iPokemonViewDetails?.getLifeCycleOwner()?.let { it ->
+            pokemonInfo?.observe(it, { pokemonList ->
+                iPokemonViewDetails?.showPokemonBasicInfo(pokemonList[0])
+            })
+        }
+        job = SupervisorJob()
+        val connectivity = iPokemonViewDetails?.getContext()?.let { ConnectivityStatus(it) }
+        iPokemonViewDetails?.getLifeCycleOwner()?.let {
+            connectivity?.observe(it,{ isConnected ->
+                try{
+                    if(isConnected){
+                        job = CoroutineScope(Dispatchers.Main).launch {
+                            Log.i("pokemonDetails","Internet")
+                            val pokemonSpeciesDef = async {
+                                iPokemonModel.getPokemonSpecies(query)
+                            }
+                            val pokemonDetailsDef = async {
+                                iPokemonModel.getPokemonDetails(query)
+                            }
+
+                            val pokemonSpecies = pokemonSpeciesDef.await()
+                            val pokemonDetails = pokemonDetailsDef.await()
+
+                            val damageRelationsType1Def = async {
+                                iPokemonModel.getDamageRelations(pokemonDetails.types[0]
+                                    .type.url)
+                            }
+
+                            val damageRelationsType2Def = async {
+                                if(pokemonDetailsDef.await().types.size>1){
+                                    iPokemonModel.getDamageRelations(pokemonDetails.types[1]
+                                        .type.url)
+                                } else{
+                                    emptyList()
+                                }
+                            }
+
+                            val abilityDef = async {
+                                iPokemonModel.getPokemonAbilityDesc(pokemonDetails.abilities)
+                            }
+
+                            val evolutionChainDef = async {
+                                val evolChainInfo = mutableListOf<String>()
+                                iPokemonModel.getPokemonEvolutionChain(
+                                    pokemonSpecies.evolutionChain,evolChainInfo)
+                            }
+                            val pokemonEvolutionChain = evolutionChainDef.await()
+
+                            val pokemonEvolutions = iPokemonModel.getPokemonEvolutions(
+                                pokemonEvolutionChain
+                            )
+                            iPokemonViewDetails!!.showAdditionalInfo(
+                                pokemonSpecies, pokemonEvolutions,
+                                damageRelationsType1Def.await(),
+                                damageRelationsType2Def.await(),
+                                abilityDef.await()
+                            )
+                        }
+                    } else{
+                        job.cancel()
+                        Log.i("pokemonDetails","NoInternet, Job Cancelled")
+                    }
+                } catch(e:Exception){
+                    e.message
+                }
+            })
+        }
     }
 }

@@ -9,6 +9,7 @@ import com.learningkotlin.pokedex.interfaces.IPokemonModel
 import com.learningkotlin.pokedex.repository.api.PokemonInfoApiAdapter
 import com.learningkotlin.pokedex.repository.api.pokemonDetails.Abilities
 import com.learningkotlin.pokedex.repository.api.pokemonDetails.PokemonDetails
+import com.learningkotlin.pokedex.repository.api.pokemonEvolChainEndPoint.EvolvesTo
 import com.learningkotlin.pokedex.repository.api.pokemonSpeciesEndPoint.EvolutionChain
 import com.learningkotlin.pokedex.repository.api.pokemonSpeciesEndPoint.PokemonSpecies
 import com.learningkotlin.pokedex.repository.constants.Constants.Companion.MAX_NUM_POKEMON
@@ -69,26 +70,6 @@ class PokemonModel(context: Context) : IPokemonModel {
         }
     }
 
-    private suspend fun getIndex(): Int {
-        lateinit var deferredIndex: Deferred<Int>
-        coroutineScope {
-            launch(Dispatchers.IO) {
-                deferredIndex = async {
-                    return@async repository.getRowCount()
-                }
-            }
-        }
-        return deferredIndex.await() + 1
-    }
-
-    private fun getListOfAbilities(abilities: List<Abilities>): List<String> {
-        val listOfAbilities = mutableListOf<String>()
-        for (url in abilities) {
-            listOfAbilities.add(url.ability.url)
-        }
-        return listOfAbilities
-    }
-
     override fun loadPokemon(): LiveData<List<Pokemon>> {
         return liveData {
             repository.pokemon.collect {
@@ -106,33 +87,184 @@ class PokemonModel(context: Context) : IPokemonModel {
     }
 
     override fun loadPokemonByQuery(query: String): LiveData<List<Pokemon>> {
-        TODO("Not yet implemented")
+        return liveData {
+            repository.getPokemonListByQuery(query).collect {
+                emit(it)
+            }
+        }
     }
 
     override suspend fun getPokemonSpecies(query: String): PokemonSpecies {
-        TODO("Not yet implemented")
+        lateinit var pokemonInfo:PokemonSpecies
+        val response = PokemonInfoApiAdapter().getPokemonSpeciesInfo().create(
+            IPokemonInfoApiService::class.java
+        ).getPokemonSpeciesEndPoint(query)
+        val bodyResponse = response.body()
+        if(response.isSuccessful && bodyResponse!=null){
+            pokemonInfo = bodyResponse
+        }
+        return pokemonInfo
     }
 
     override suspend fun getPokemonDetails(query: String): PokemonDetails {
-        TODO("Not yet implemented")
+        lateinit var pokemonInfo:PokemonDetails
+        val response = PokemonInfoApiAdapter().getPokemonDetails()
+            .create(IPokemonInfoApiService::class.java).getPokemonInfoFromUrl(query)
+        val bodyResponse = response.body()
+        if(response.isSuccessful && bodyResponse!=null){
+            pokemonInfo = bodyResponse
+        }
+        return pokemonInfo
     }
 
     override suspend fun getDamageRelations(url: String): List<List<String>> {
-        TODO("Not yet implemented")
+        lateinit var doubleDamageFromDeferred: Deferred<MutableList<String>>
+        lateinit var halfDamageFromDeferred: Deferred<MutableList<String>>
+        lateinit var noDamageFromDeferred: Deferred<MutableList<String>>
+        lateinit var doubleDamageToDeferred: Deferred<MutableList<String>>
+        lateinit var halfDamageToDeferred: Deferred<MutableList<String>>
+        lateinit var noDamageToDeferred: Deferred<MutableList<String>>
+
+        val response = PokemonInfoApiAdapter().getDamageRelations(url)
+            .create(IPokemonInfoApiService::class.java).getPokemonDamageRelations("")
+        val bodyResponse = response.body()
+        if(response.isSuccessful && bodyResponse!=null){
+            coroutineScope {
+                doubleDamageFromDeferred = async(Dispatchers.IO) {
+                    val damageRelatInfo = mutableListOf<String>()
+                    for (type in bodyResponse.damageRelations.doubleDamageFrom) {
+                        damageRelatInfo.add(type.name)
+                    }
+                    return@async damageRelatInfo
+                }
+
+                halfDamageFromDeferred = async(Dispatchers.IO) {
+                    val damageRelatInfo = mutableListOf<String>()
+                    for (type in bodyResponse.damageRelations.halfDamageFrom) {
+                        damageRelatInfo.add(type.name)
+                    }
+                    return@async damageRelatInfo
+                }
+
+                noDamageFromDeferred = async(Dispatchers.IO) {
+                    val damageRelatInfo = mutableListOf<String>()
+                    for (type in bodyResponse.damageRelations.noDamageFrom) {
+                        damageRelatInfo.add(type.name)
+                    }
+                    return@async damageRelatInfo
+                }
+
+                doubleDamageToDeferred = async(Dispatchers.IO) {
+                    val damageRelatInfo = mutableListOf<String>()
+                    for (type in bodyResponse.damageRelations.doubleDamageTo) {
+                        damageRelatInfo.add(type.name)
+                    }
+                    return@async damageRelatInfo
+                }
+
+                halfDamageToDeferred = async(Dispatchers.IO) {
+                    val damageRelatInfo = mutableListOf<String>()
+                    for (type in bodyResponse.damageRelations.halfDamageTo) {
+                        damageRelatInfo.add(type.name)
+                    }
+                    return@async damageRelatInfo
+                }
+
+                noDamageToDeferred = async(Dispatchers.IO) {
+                    val damageRelatInfo = mutableListOf<String>()
+                    for (type in bodyResponse.damageRelations.noDamageTo) {
+                        damageRelatInfo.add(type.name)
+                    }
+                    return@async damageRelatInfo
+                }
+            }
+        }
+        return listOf(
+            doubleDamageFromDeferred.await(),
+            halfDamageFromDeferred.await(),
+            noDamageFromDeferred.await(),
+            doubleDamageToDeferred.await(),
+            halfDamageToDeferred.await(),
+            noDamageToDeferred.await()
+        )
     }
 
     override suspend fun getPokemonAbilityDesc(abilities: List<Abilities>): Map<String, String> {
-        TODO("Not yet implemented")
+        val pokemonInfo = mutableMapOf<String, String>()
+        for(ability in abilities){
+            val response = PokemonInfoApiAdapter().getAbilityDesc(ability.ability.url)
+                .create(IPokemonInfoApiService::class.java).getPokemonAbilitiesEndPoint("")
+            val bodyResponse = response.body()
+            if(response.isSuccessful && bodyResponse!=null){
+                for(language in bodyResponse.flavorTextEntries){
+                    if(language.language.name=="en"){
+                        pokemonInfo[ability.ability.name] = language.flavorText
+                        break
+                    }
+                }
+            }
+        }
+        return pokemonInfo
     }
 
     override suspend fun getPokemonEvolutionChain(
         evolutionChain: EvolutionChain,
         evolChainInfo: MutableList<String>
     ): List<String> {
-        TODO("Not yet implemented")
+        val response = PokemonInfoApiAdapter().getEvolutionChain(evolutionChain.url)
+            .create(IPokemonInfoApiService::class.java).getPokemonEvolChain("")
+        val bodyResponse = response.body()
+        if(response.isSuccessful && bodyResponse!=null){
+            evolChainInfo.add(bodyResponse.chain.species.name)
+            setEvols(bodyResponse.chain.evolvesTo, evolChainInfo)
+        }
+        return evolChainInfo
     }
 
     override suspend fun getPokemonEvolutions(pokemonEvolutionChain: List<String>): List<Pokemon> {
-        TODO("Not yet implemented")
+        val pokemonList = mutableListOf<Pokemon>()
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                for(pokemonName in pokemonEvolutionChain){
+                    val pokemon = repository.getPokemonByQuery(pokemonName)
+                    if(pokemon!=null){
+                        pokemonList.add(pokemon)
+                    } else{
+                        break
+                    }
+                }
+            }
+        }
+        Log.i("pokemonList","$pokemonList, $pokemonEvolutionChain")
+        return pokemonList
+    }
+
+    private fun getListOfAbilities(abilities: List<Abilities>): List<String> {
+        val listOfAbilities = mutableListOf<String>()
+        for (url in abilities) {
+            listOfAbilities.add(url.ability.url)
+        }
+        return listOfAbilities
+    }
+
+    private suspend fun getIndex(): Int {
+        lateinit var deferredIndex: Deferred<Int>
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                deferredIndex = async {
+                    return@async repository.getRowCount()
+                }
+            }
+        }
+        return deferredIndex.await() + 1
+    }
+
+    private fun setEvols(evolList: List<EvolvesTo>, evolChainInfo: MutableList<String>) {
+        if(evolList.isNotEmpty()){
+            for(item in evolList){
+                evolChainInfo.add(item.species.name)
+                setEvols(item.evolvesTo, evolChainInfo)
+            }
+        }
     }
 }
