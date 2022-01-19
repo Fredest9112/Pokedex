@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
@@ -18,7 +19,7 @@ import com.learningkotlin.pokedex.model.PokemonModel
 import com.learningkotlin.pokedex.presenter.PokemonPresenter
 import com.learningkotlin.pokedex.repository.database.Pokemon
 
-class PokemonListFragment : Fragment(), IPokemonView {
+class PokemonListFragment : Fragment(), IPokemonView, androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
     private var binding: FragmentListPokemonBinding? = null
     private lateinit var pokemonListAdapter: RVPokemonListAdapter
@@ -35,7 +36,7 @@ class PokemonListFragment : Fragment(), IPokemonView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeRV()
-
+        binding?.searchView?.setOnQueryTextListener(this)
         iPokemonPresenter = PokemonPresenter(
             this,
             PokemonModel.getInstance(requireActivity().applicationContext)!!
@@ -74,6 +75,19 @@ class PokemonListFragment : Fragment(), IPokemonView {
     }
 
     override fun showEmptySearchMessage() {
-        TODO("Not yet implemented")
+        Toast.makeText(activity, R.string.empty_message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String): Boolean {
+        if(query.isNotEmpty()){
+            iPokemonPresenter.showPokemonByQuery(query)
+        } else{
+            iPokemonPresenter.showPokemonInfo()
+        }
+        return true
     }
 }

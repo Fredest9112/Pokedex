@@ -2,6 +2,8 @@ package com.learningkotlin.pokedex.presenter
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.learningkotlin.pokedex.interfaces.*
 import com.learningkotlin.pokedex.model.PokemonModel
 import com.learningkotlin.pokedex.repository.database.Pokemon
@@ -85,7 +87,19 @@ class PokemonPresenter() : IPokemonPresenter {
     }
 
     override fun showPokemonByQuery(query: String) {
-        TODO("Not yet implemented")
+        pokemonInfo?.removeObservers(iPokemonView.getLifeCycleOwner())
+        val queryInput = MutableLiveData(query)
+        pokemonInfo = Transformations.switchMap(queryInput){
+            iPokemonModel.loadPokemonByQuery(it)
+        }
+        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(),{
+            if(it.isEmpty()){
+                iPokemonView.showEmptySearchMessage()
+                iPokemonView.showPokemon(it)
+            } else{
+                iPokemonView.showPokemon(it)
+            }
+        })
     }
 
     override fun showPokemonDetails(query: String) {
