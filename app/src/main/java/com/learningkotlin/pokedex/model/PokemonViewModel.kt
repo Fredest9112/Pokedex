@@ -1,7 +1,9 @@
 package com.learningkotlin.pokedex.model
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.learningkotlin.pokedex.repository.api.IPokemonInfoApiService
 import com.learningkotlin.pokedex.repository.api.PokemonInfoApiAdapter
 import com.learningkotlin.pokedex.repository.api.pokemonDetails.Abilities
@@ -9,6 +11,7 @@ import com.learningkotlin.pokedex.repository.constants.Constants.Companion.MAX_N
 import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.database.PokemonRepository
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import java.net.ConnectException
 
 class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() {
@@ -68,6 +71,14 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
             listOfAbilities.add(url.ability.url)
         }
         return listOfAbilities
+    }
+
+    fun loadPokemon():LiveData<List<Pokemon>>{
+        return liveData {
+            repository.pokemon.collect {
+                emit(it)
+            }
+        }
     }
 
 }
