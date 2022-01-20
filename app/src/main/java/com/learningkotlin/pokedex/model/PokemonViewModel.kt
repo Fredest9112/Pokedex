@@ -22,13 +22,14 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
             while (getIndex() <= MAX_NUM_POKEMON) {
                 val index = getIndex()
                 val response =
-                    PokemonInfoApiAdapter().getPokemonInfoRetrofit().create(IPokemonInfoApiService::class.java)
+                    PokemonInfoApiAdapter().getPokemonInfoRetrofit()
+                        .create(IPokemonInfoApiService::class.java)
                         .getPokemonInfoFromUrl("$index")
                 val infoOfPokemon = response.body()
 
                 if (response.isSuccessful && infoOfPokemon != null) {
                     var type2 = ""
-                    if(infoOfPokemon.types.size>1){
+                    if (infoOfPokemon.types.size > 1) {
                         type2 = infoOfPokemon.types[1].type.name
                     }
 
@@ -67,13 +68,13 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
 
     private fun getListOfAbilities(abilities: List<Abilities>): List<String> {
         val listOfAbilities = mutableListOf<String>()
-        for(url in abilities){
+        for (url in abilities) {
             listOfAbilities.add(url.ability.url)
         }
         return listOfAbilities
     }
 
-    fun loadPokemon():LiveData<List<Pokemon>>{
+    fun loadPokemon(): LiveData<List<Pokemon>> {
         return liveData {
             repository.pokemon.collect {
                 emit(it)

@@ -13,15 +13,15 @@ import com.learningkotlin.pokedex.model.PokemonViewModel
 
 class PokemonListFragment : Fragment() {
 
-    private var binding:FragmentListPokemonBinding? = null
-    private lateinit var pokemonViewModel:PokemonViewModel
-    private lateinit var pokemonListAdapter:RVPokemonListAdapter
+    private var binding: FragmentListPokemonBinding? = null
+    private lateinit var pokemonViewModel: PokemonViewModel
+    private lateinit var pokemonListAdapter: RVPokemonListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListPokemonBinding.inflate(inflater, container,false)
+        binding = FragmentListPokemonBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -39,7 +39,8 @@ class PokemonListFragment : Fragment() {
 
     private fun initializeRV() {
         pokemonListAdapter = RVPokemonListAdapter()
-        pokemonListAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        pokemonListAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         val grindLayoutManager = GridLayoutManager(context, 1)
         binding?.pokemonIdRecycler?.layoutManager = grindLayoutManager
         binding?.pokemonIdRecycler?.adapter = pokemonListAdapter
