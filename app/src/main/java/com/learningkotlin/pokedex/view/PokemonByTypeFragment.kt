@@ -21,7 +21,7 @@ class PokemonByTypeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentListPokemonTypeBinding.bind(view)
+        //val binding = FragmentListPokemonTypeBinding.bind(view)
     }
 
     override fun onDestroyView() {
