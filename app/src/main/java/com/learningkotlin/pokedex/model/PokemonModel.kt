@@ -17,7 +17,6 @@ import com.learningkotlin.pokedex.repository.database.Pokemon
 import com.learningkotlin.pokedex.repository.database.PokemonDatabase
 import com.learningkotlin.pokedex.repository.database.PokemonRepository
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import java.net.ConnectException
 
 class PokemonModel(context: Context) : IPokemonModel {

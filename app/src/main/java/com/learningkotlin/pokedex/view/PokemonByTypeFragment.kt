@@ -1,15 +1,14 @@
 package com.learningkotlin.pokedex.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.learningkotlin.pokedex.R
 import com.learningkotlin.pokedex.databinding.FragmentListPokemonTypeBinding
 import com.learningkotlin.pokedex.interfaces.IPokemonPresenter
