@@ -2,6 +2,8 @@ package com.learningkotlin.pokedex.presenter
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.learningkotlin.pokedex.interfaces.*
 import com.learningkotlin.pokedex.model.PokemonModel
 import com.learningkotlin.pokedex.repository.database.Pokemon
@@ -45,7 +47,7 @@ class PokemonPresenter() : IPokemonPresenter {
         job = SupervisorJob()
         val connectivity = iPokemonViewAct?.getContext()?.let { ConnectivityStatus(it) }
         iPokemonViewAct?.getLifeCycleOwner()?.let {
-            connectivity?.observe(it, { isConnected ->
+            connectivity?.observe(it) { isConnected ->
                 try {
                     if (isConnected) {
                         job = CoroutineScope(Dispatchers.IO).launch {
@@ -58,7 +60,7 @@ class PokemonPresenter() : IPokemonPresenter {
                 } catch (e: Exception) {
                     e.message
                 }
-            })
+            }
         }
     }
 
@@ -66,44 +68,56 @@ class PokemonPresenter() : IPokemonPresenter {
         if (pokemonInfo != null || pokemonInfo?.hasActiveObservers() == true) {
             pokemonInfo?.removeObservers(iPokemonView.getLifeCycleOwner())
             pokemonInfo = iPokemonModel.loadPokemon()
-            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(), {
+            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner()) {
                 iPokemonView.showPokemon(it)
-            })
+            }
         } else {
             pokemonInfo = iPokemonModel.loadPokemon()
-            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(), {
+            pokemonInfo?.observe(iPokemonView.getLifeCycleOwner()) {
                 iPokemonView.showPokemon(it)
-            })
+            }
         }
     }
 
     override fun showPokemonInfoByType(type: String) {
         pokemonInfo = iPokemonModel.loadPokemonByType(type.lowercase())
-        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner(), {
+        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner()) {
             iPokemonView.showPokemon(it)
-        })
+        }
     }
 
     override fun showPokemonByQuery(query: String) {
-        TODO("Not yet implemented")
+        pokemonInfo?.removeObservers(iPokemonView.getLifeCycleOwner())
+        val queryInput = MutableLiveData(query)
+        pokemonInfo = Transformations.switchMap(queryInput){
+            iPokemonModel.loadPokemonByQuery(it)
+        }
+        pokemonInfo?.observe(iPokemonView.getLifeCycleOwner()) {
+            if (it.isEmpty()) {
+                iPokemonView.showEmptySearchMessage()
+                iPokemonView.showPokemon(it)
+            } else {
+                iPokemonView.showPokemon(it)
+            }
+        }
     }
 
     override fun showPokemonDetails(query: String) {
         iPokemonViewDetails?.getLifeCycleOwner()?.let { pokemonInfo?.removeObservers(it) }
         pokemonInfo = iPokemonModel.loadPokemonByQuery(query.lowercase())
         iPokemonViewDetails?.getLifeCycleOwner()?.let { it ->
-            pokemonInfo?.observe(it, { pokemonList ->
+            pokemonInfo?.observe(it) { pokemonList ->
                 iPokemonViewDetails?.showPokemonBasicInfo(pokemonList[0])
-            })
+            }
         }
         job = SupervisorJob()
         val connectivity = iPokemonViewDetails?.getContext()?.let { ConnectivityStatus(it) }
         iPokemonViewDetails?.getLifeCycleOwner()?.let {
-            connectivity?.observe(it,{ isConnected ->
-                try{
-                    if(isConnected){
+            connectivity?.observe(it) { isConnected ->
+                try {
+                    if (isConnected) {
                         job = CoroutineScope(Dispatchers.Main).launch {
-                            Log.i("pokemonDetails","Internet")
+                            Log.i("pokemonDetails", "Internet")
                             val pokemonSpeciesDef = async {
                                 iPokemonModel.getPokemonSpecies(query)
                             }
@@ -115,15 +129,19 @@ class PokemonPresenter() : IPokemonPresenter {
                             val pokemonDetails = pokemonDetailsDef.await()
 
                             val damageRelationsType1Def = async {
-                                iPokemonModel.getDamageRelations(pokemonDetails.types[0]
-                                    .type.url)
+                                iPokemonModel.getDamageRelations(
+                                    pokemonDetails.types[0]
+                                        .type.url
+                                )
                             }
 
                             val damageRelationsType2Def = async {
-                                if(pokemonDetailsDef.await().types.size>1){
-                                    iPokemonModel.getDamageRelations(pokemonDetails.types[1]
-                                        .type.url)
-                                } else{
+                                if (pokemonDetailsDef.await().types.size > 1) {
+                                    iPokemonModel.getDamageRelations(
+                                        pokemonDetails.types[1]
+                                            .type.url
+                                    )
+                                } else {
                                     emptyList()
                                 }
                             }
@@ -135,7 +153,8 @@ class PokemonPresenter() : IPokemonPresenter {
                             val evolutionChainDef = async {
                                 val evolChainInfo = mutableListOf<String>()
                                 iPokemonModel.getPokemonEvolutionChain(
-                                    pokemonSpecies.evolutionChain,evolChainInfo)
+                                    pokemonSpecies.evolutionChain, evolChainInfo
+                                )
                             }
                             val pokemonEvolutionChain = evolutionChainDef.await()
 
@@ -149,14 +168,14 @@ class PokemonPresenter() : IPokemonPresenter {
                                 abilityDef.await()
                             )
                         }
-                    } else{
+                    } else {
                         job.cancel()
-                        Log.i("pokemonDetails","NoInternet, Job Cancelled")
+                        Log.i("pokemonDetails", "NoInternet, Job Cancelled")
                     }
-                } catch(e:Exception){
+                } catch (e: Exception) {
                     e.message
                 }
-            })
+            }
         }
     }
 }

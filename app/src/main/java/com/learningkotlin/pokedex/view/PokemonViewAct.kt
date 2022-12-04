@@ -1,13 +1,10 @@
 package com.learningkotlin.pokedex.view
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.learningkotlin.pokedex.R
-import com.learningkotlin.pokedex.databinding.ActivityMainBinding
 import com.learningkotlin.pokedex.interfaces.IPokemonPresenter
 import com.learningkotlin.pokedex.interfaces.IPokemonViewAct
 import com.learningkotlin.pokedex.model.PokemonModel

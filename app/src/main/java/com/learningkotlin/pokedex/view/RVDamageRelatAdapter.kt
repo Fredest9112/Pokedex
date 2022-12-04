@@ -12,7 +12,7 @@ import com.learningkotlin.pokedex.databinding.PokemonDamagetypeItemBinding
 import com.learningkotlin.pokedex.repository.constants.Constants.Companion.NO_TYPE
 import com.learningkotlin.pokedex.repository.utilities.Utilities
 
-class RVDamageRelatAdapter(val damageRelatList: List<List<String>>): RecyclerView.Adapter<DamageRelatViewHolder>() {
+class RVDamageRelatAdapter(private val damageRelatList: List<List<String>>): RecyclerView.Adapter<DamageRelatViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DamageRelatViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return DamageRelatViewHolder(layoutInflater.inflate(R.layout.pokemon_damagerelat_item,parent,false))
